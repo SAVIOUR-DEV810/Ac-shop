@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AC Shop | Ad Creators</title>
+    <link rel="stylesheet" href="website.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #07111f;
+        color: white;
+      }
+      .box {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: rgba(10,18,30,0.8);
+      }
+      th, td {
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        padding: 12px 10px;
+        text-align: left;
+      }
+      th { background: rgba(34,211,238,0.12); }
+      .muted { color: #9bb3c8; }
+    </style>
+  </head>
+  <body>
+    <script>
+      const CEO_PASSWORD = 'buzifrank';
+      const ceoUnlocked = sessionStorage.getItem('acShopCeoUnlocked') === 'true';
+
+      if (!ceoUnlocked) {
+        sessionStorage.setItem('acShopCeoRedirect', 'ceo-ads.html');
+        window.location.href = 'ceo-password.html';
+      }
+    </script>
+    <div class="box">
+      <h1>People who created ads</h1>
+      <p class="muted">Live list of ad creators.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Professor</th>
+            <th>Email</th>
+            <th>Course</th>
+            <th>Specialty</th>
+            <th>Payout</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody id="adsBody"></tbody>
+      </table>
+    </div>
+
+    <script>
+      const token = localStorage.getItem('acShopToken');
+      const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://127.0.0.1:3000' : '';
+
+      async function loadAds() {
+        try {
+          const res = await fetch(`${API_BASE}/api/ceo/ads`, {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            }
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.message || 'Unauthorized');
+
+          const body = document.getElementById('adsBody');
+          body.innerHTML = (data.ads || []).map(ad => `
+            <tr>
+              <td>${ad.id}</td>
+              <td>${ad.professor_name}</td>
+              <td>${ad.email || ad.user_email}</td>
+              <td>${ad.course_title}</td>
+              <td>${ad.specialty}</td>
+              <td>$${Number(ad.payout_amount || 0).toFixed(2)}</td>
+              <td>${new Date(ad.created_at).toLocaleString()}</td>
+            </tr>
+          `).join('');
+        } catch (error) {
+          document.getElementById('adsBody').innerHTML = `<tr><td colspan="7">${error.message}</td></tr>`;
+        }
+      }
+
+      loadAds();
+      setInterval(loadAds, 15000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AC Shop | CEO access</title>
+    <link rel="stylesheet" href="website.css" />
+  </head>
+  <body>
+    <main class="auth-shell" style="max-width: 620px; margin: 10vh auto; display: block; padding: 48px;">
+      <h1>CEO access</h1>
+      <p id="message">Enter the CEO password to continue.</p>
+      <form id="ceoForm">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required />
+        <button class="primary-btn" type="submit">Continue</button>
+      </form>
+    </main>
+    <script>
+      const isLocalPreview = window.location.protocol === 'file:'
+        || (['localhost', '127.0.0.1'].includes(window.location.hostname) && window.location.port !== '3000');
+      const API_BASE = isLocalPreview ? 'http://127.0.0.1:3000' : '';
+      const message = document.getElementById('message');
+      const form = document.getElementById('ceoForm');
+      const nextPage = new URLSearchParams(window.location.search).get('next') || '/ceo-data.html';
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        message.textContent = 'Checking access...';
+        try {
+          const response = await fetch(`${API_BASE}/api/auth/ceo-session`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: form.password.value })
+          });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok) throw new Error(data.message || 'CEO access denied.');
+          localStorage.setItem('acShopSession', 'true');
+          localStorage.setItem('acShopToken', data.token);
+          window.location.replace(nextPage);
+        } catch (error) {
+          message.textContent = error.message;
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AC Shop | Verify account</title>
+    <link rel="stylesheet" href="website.css" />
+  </head>
+  <body>
+    <main class="auth-shell" style="max-width: 620px; margin: 10vh auto; display: block; padding: 48px;">
+      <h1 id="title">Verifying your account</h1>
+      <p id="message">Please wait while we verify your email link.</p>
+      <a class="primary-btn" id="continueLink" href="login.html" style="display: inline-block; text-decoration: none;">Continue to login</a>
+    </main>
+    <script>
+      const isLocalPreview = window.location.protocol === 'file:'
+        || (['localhost', '127.0.0.1'].includes(window.location.hostname) && window.location.port !== '3000');
+      const API_BASE = isLocalPreview ? 'http://127.0.0.1:3000' : '';
+      const title = document.getElementById('title');
+      const message = document.getElementById('message');
+      const continueLink = document.getElementById('continueLink');
+      const token = new URLSearchParams(window.location.search).get('token');
+
+      async function verifyAccount() {
+        if (!token) {
+          title.textContent = 'Verification link missing';
+          message.textContent = 'Request a new verification link by trying to log in again.';
+          return;
+        }
+
+        try {
+          const response = await fetch(`${API_BASE}/api/auth/verify-email?token=${encodeURIComponent(token)}`);
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok) throw new Error(data.message || 'This link is invalid or expired.');
+
+          localStorage.removeItem('acShopSession');
+          localStorage.removeItem('acShopToken');
+          title.textContent = 'Account verified';
+          message.textContent = 'Your account is verified. Continue to login with the password you created.';
+          continueLink.textContent = 'Continue to login';
+          continueLink.href = 'login.html?verified=1';
+          window.setTimeout(() => {
+            window.location.href = 'login.html?verified=1';
+          }, 1800);
+        } catch (error) {
+          title.textContent = 'Verification failed';
+          message.textContent = error.message;
+        }
+      }
+
+      verifyAccount();
+    </script>
+  </body>
+</html>

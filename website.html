@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AC Shop | Smart commerce, built for growth</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="website.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <section class="landing-wrap">
+      <div class="landing-hero">
+        <div class="hero-motion" aria-hidden="true">
+          <div class="motion-grid"></div>
+          <div class="motion-orbit motion-orbit-one"></div>
+          <div class="motion-orbit motion-orbit-two"></div>
+          <div class="motion-node motion-node-one"></div>
+          <div class="motion-node motion-node-two"></div>
+          <div class="motion-node motion-node-three"></div>
+        </div>
+        <div class="hero-copy">
+          <div class="hero-sequence" aria-label="AC Shop loading sequence">
+            <span class="sequence-prompt">./open-shop</span>
+            <span class="sequence-name">AC Shop</span>
+            <span class="sequence-cursor"></span>
+          </div>
+          <div class="nova-badge" aria-label="AC Shop brand icon">
+            <div class="brand-mark">A</div>
+            <div class="brand-wordmark">
+              <span>AC</span>
+              <strong>Shop</strong>
+            </div>
+          </div>
+
+          <p class="eyebrow">Smart commerce, premium flow</p>
+          <h1>Shop the smart way.</h1>
+          <p class="hero-lede">Private, modern commerce with a premium experience built for faster decisions, better products, and stronger growth.</p>
+
+          <div class="hero-actions">
+            <button class="primary-btn big-btn" id="viewDashboardBtn" type="button">View dashboard</button>
+            <a class="primary-btn big-btn" href="ondownload.html">Download app</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="dashboard-shell" id="dashboardShell" style="display: none;">
+      <aside class="sidebar">
+        <div class="brand-wrap">
+          <div class="brand-logo">N</div>
+          <div>
+            <p class="brand-name">AC Shop</p>
+            <p class="brand-subtitle">Smart commerce</p>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <a class="nav-item active" href="#" data-nav="overview">Overview</a>
+          <a class="nav-item" href="#" data-nav="courses">Courses</a>
+          <a class="nav-item" href="#" data-nav="members">Members</a>
+          <a class="nav-item" href="#" data-nav="revenue">Revenue</a>
+          <a class="nav-item" href="#" data-nav="analytics">Analytics</a>
+          <a class="nav-item" href="#" data-nav="settings">Settings</a>
+        </nav>
+
+        <div class="sidebar-highlight">
+          <p class="tiny-label">Your workspace</p>
+          <h3>Start small.</h3>
+          <p class="muted-small">Create your first course to bring your teaching to life.</p>
+        </div>
+      </aside>
+
+      <main class="content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Dashboard</p>
+            <h1>Premium subscriptions</h1>
+            <p id="accountVerificationNotice" class="card-meta" style="display: none;">Verify your account to access students and professors in your location and worldwide.</p>
+          </div>
+
+          <div class="topbar-right">
+            <input id="courseSearchInput" class="search-box" type="text" placeholder="search courses" aria-label="Search courses" />
+            <button class="ghost-btn">Export</button>
+            <button class="primary-btn">Create lesson</button>
+          </div>
+        </header>
+
+        <section class="panel live-call-panel" id="liveCallPanel">
+          <div class="panel-head">
+            <div>
+              <p class="tiny-label">Live classroom</p>
+              <h3>Join a live call</h3>
+            </div>
+            <span class="mini-tag info">Call code</span>
+          </div>
+          <div class="live-call-content">
+            <div>
+              <p class="card-meta">Enter the code from your professor to open the live lesson.</p>
+              <div class="call-code-actions">
+                <input id="callCodeInput" class="search-box" type="text" maxlength="8" placeholder="AB12CD34" aria-label="Live call code" />
+                <button class="primary-btn small" id="joinCallBtn" type="button">Join call</button>
+              </div>
+              <p class="error-text" id="callError" role="alert"></p>
+            </div>
+            <div class="call-host-box">
+              <span class="tiny-label">Professor tools</span>
+              <button class="ghost-btn small" id="createCallBtn" type="button">Create call code</button>
+              <strong id="createdCallCode">No active call</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="stats-grid">
+          <article class="stat-card hero-card">
+            <div class="card-header">
+              <p>Total subscribers</p>
+              <span class="mini-tag info">Live data</span>
+            </div>
+            <h2 id="subscriberCount">0</h2>
+            <p class="card-meta" id="subscriberMeta">Live verified accounts</p>
+          </article>
+
+          <article class="stat-card">
+            <div class="card-header">
+              <p>Monthly revenue</p>
+              <span class="mini-tag info">Live data</span>
+            </div>
+            <h2 id="revenueTotal">$0.00</h2>
+            <p class="card-meta" id="revenueMeta">Live completed enrollment revenue</p>
+          </article>
+
+          <article class="stat-card">
+            <div class="card-header">
+              <p>Course completion</p>
+              <span class="mini-tag info">Live data</span>
+            </div>
+            <h2 id="completionRate">0%</h2>
+            <p class="card-meta" id="completionMeta">Live completed enrollments</p>
+          </article>
+        </section>
+
+        <section class="main-grid">
+          <article class="panel chart-panel">
+            <div class="panel-head">
+              <div>
+                <p class="tiny-label">Performance</p>
+                <h3>Revenue growth</h3>
+              </div>
+              <button class="ghost-btn small" type="button">No data yet</button>
+            </div>
+
+            <div class="chart-wrap" aria-label="Revenue chart">
+              <div class="chart-grid"></div>
+              <p class="empty-state">No revenue data yet.</p>
+            </div>
+
+            <div class="legend">
+              <span><i class="dot purple"></i> Premium</span>
+              <span><i class="dot teal"></i> Standard</span>
+            </div>
+          </article>
+
+          <article class="panel plan-panel">
+            <div class="panel-head">
+              <div>
+                <p class="tiny-label">Membership</p>
+                <h3>Plan mix</h3>
+              </div>
+            </div>
+
+            <div class="plan-list">
+              <div class="plan-row">
+                <div>
+                    <strong>Pricing plans</strong>
+                    <p>Add your first course to set a price.</p>
+                </div>
+                <span>Not configured</span>
+              </div>
+
+              <div class="plan-row">
+                <div>
+                    <strong>Class schedule</strong>
+                    <p>Your live lessons will appear here.</p>
+                </div>
+                <span>Not configured</span>
+              </div>
+
+              <div class="plan-row">
+                <div>
+                    <strong>Audience</strong>
+                    <p>Enrollment activity will appear here.</p>
+                </div>
+                <span>Not configured</span>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="panel members-section is-hidden" id="membersSection">
+          <div class="panel-head">
+            <div>
+              <p class="tiny-label">Members</p>
+              <h3>Professors with active ads</h3>
+            </div>
+          </div>
+
+          <div class="members-grid" id="membersGrid">
+            <article class="member-card is-hidden" id="memberCard">
+              <div class="member-card-top">
+                <div class="professor-avatar small-avatar" id="memberAvatar"></div>
+                <div>
+                  <h4 id="memberName"></h4>
+                  <p id="memberCourse"></p>
+                </div>
+              </div>
+              <div class="member-meta">
+                <span class="ad-tag">Ad active</span>
+                <span class="member-email" id="memberEmail"></span>
+              </div>
+            </article>
+            <p class="empty-state" id="membersEmptyState">No professors have created an ad yet.</p>
+          </div>
+        </section>
+
+        <section class="panel discovery-panel" id="discoveryPanel">
+          <div class="panel-head">
+            <div>
+              <p class="tiny-label">Discover</p>
+              <h3>More courses</h3>
+            </div>
+          </div>
+
+          <div id="courseResults" class="course-results" aria-live="polite"></div>
+          <button class="ghost-btn full-width" id="moreCoursesBtn" type="button">Click for more courses</button>
+        </section>
+
+        <section class="panel instructor-panel">
+          <div class="panel-head">
+            <div>
+              <p class="tiny-label">Professor setup</p>
+              <h3>Build your course profile</h3>
+            </div>
+          </div>
+
+          <div class="profile-builder">
+            <div class="upload-panel">
+              <label class="upload-card" for="profileImageInput">
+                <input type="file" id="profileImageInput" accept="image/*" />
+                <div class="upload-preview" id="profilePreview">
+                  <span>Upload profile</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="form-grid">
+              <label>
+                Professor name
+                <input id="professorName" type="text" placeholder="Your full name" />
+              </label>
+
+              <label>
+                Course title
+                <input id="courseTitle" type="text" placeholder="Course title" />
+              </label>
+
+              <label>
+                Specialty
+                <input id="courseSpecialty" type="text" placeholder="Your specialty" />
+              </label>
+
+              <label>
+                Experience
+                <input id="experienceYears" type="text" placeholder="Years of experience" />
+              </label>
+
+              <label>
+                Email address
+                <input id="professorEmail" type="email" placeholder="Your email address" />
+              </label>
+
+              <label class="full-span">
+                Short bio
+                <textarea id="professorBio" rows="3" placeholder="Tell learners about your experience"></textarea>
+              </label>
+
+              <label class="full-span">
+                Ad copy for learners
+                <textarea id="adTextInput" rows="4" placeholder="Describe your course"></textarea>
+              </label>
+
+              <label class="full-span">
+                Letter of inspiration to your fans
+                <textarea id="inspirationMessage" rows="4" placeholder="Tell your fans how you will inspire and guide them. Minimum 40 characters."></textarea>
+              </label>
+
+              <label>
+                Minimum payout amount
+                <input id="payoutAmount" type="number" min="15" step="1" value="15" />
+              </label>
+
+              <label>
+                Payment method
+                <select id="paymentMethod">
+                  <option value="visa">Visa Card</option>
+                  <option value="mastercard">MasterCard</option>
+                  <option value="verve">Verve Card</option>
+                  <option value="payPal">PayPal</option>
+                  <option value="paysera">Paysera</option>
+                  <option value="airtm">Airtm</option>
+                </select>
+              </label>
+
+              <label>
+                Account holder / payment name
+                <input id="paymentName" type="text" placeholder="Full name on the account" />
+              </label>
+
+              <label class="full-span">
+                Payment account details
+                <input id="paymentAccount" type="text" placeholder="PayPal email, Paysera ID, or Airtm ID" />
+              </label>
+
+              <div class="full-span permission-row">
+                <span id="payoutPermissionStatus">Payout access: allowed</span>
+                <button class="ghost-btn small" id="revokePayoutPermissionBtn" type="button">Revoke payout permission</button>
+              </div>
+
+              <button class="primary-btn generate-btn" id="generateAdBtn" type="button">Create ad</button>
+            </div>
+          </div>
+
+          <div class="ad-preview">
+            <p class="tiny-label">Learner ad preview</p>
+            <div class="ad-card" id="adCard">
+              <div class="ad-profile-row">
+                <div class="mini-avatar" id="miniAvatar"></div>
+                <div>
+                  <h4 id="adProfessorName"></h4>
+                  <span id="adCourseName"></span>
+                </div>
+              </div>
+
+              <div class="ad-badges">
+                <span class="ad-tag" id="adCourseBadge"></span>
+              </div>
+
+              <h3 id="adBigTitle"></h3>
+              <p id="adPreviewText"></p>
+
+              <div class="ad-metrics">
+                <div>
+                  <strong id="adPayoutLabel">Set by professor</strong>
+                  <span>Hourly payout</span>
+                </div>
+                <div>
+                  <strong>Not rated</strong>
+                  <span>Rating</span>
+                </div>
+                <div>
+                  <strong id="adPaymentMethod">Visa • hourly payout</strong>
+                  <span>Payment</span>
+                </div>
+              </div>
+
+              <div class="ad-inspiration">
+                <p class="tiny-label">Inspiration note</p>
+                <p id="adInspirationText"></p>
+              </div>
+
+              <div class="cta-row">
+                <button id="enrollLink" class="primary-btn small" type="button">Enroll now</button>
+                <button class="ghost-btn small" id="deleteAdBtn" type="button">Delete ad</button>
+                <span>Limited seats</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="permission-modal" id="permissionModal" aria-hidden="true">
+          <div class="permission-panel">
+            <p class="tiny-label">Email permission</p>
+            <h3 id="permissionTitle">Allow access to the professor email?</h3>
+
+            <div class="voice-note" aria-live="polite">
+              <div class="voice-icon">◉</div>
+              <div>
+                <small>AI voice note</small>
+                <p>scroll up and allow AC Shop to access your email for updated information</p>
+              </div>
+            </div>
+
+            <p class="permission-text" id="permissionText">
+              Review the requested permission before continuing.
+            </p>
+
+            <div class="modal-actions">
+              <button class="ghost-btn small" id="denyAccessBtn" type="button">Cancel</button>
+              <button class="primary-btn small" id="allowAccessBtn" type="button">Allow access</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="permission-modal" id="enrollmentPaymentModal" aria-hidden="true">
+          <div class="permission-panel">
+            <p class="tiny-label">Enrollment checkout</p>
+            <h3>Provide payment details</h3>
+            <p class="permission-text">Enter your preferred payment method to request enrollment. Do not enter a PIN or security code.</p>
+            <div class="enrollment-payment-form">
+              <label>Full name<input id="enrollmentPayerName" type="text" autocomplete="name" placeholder="Your full name" /></label>
+              <label>Class duration<select id="enrollmentDuration"><option value="1">1 hour</option><option value="2">2 hours</option><option value="4">4 hours</option><option value="8">8 hours</option></select></label>
+              <div class="enrollment-price-summary"><span>Product price</span><strong id="enrollmentProfessorRate">$20.00</strong><span>AC Shop fee</span><strong>$5.00 / hour</strong><span>Total</span><strong id="enrollmentTotal">$25.00</strong></div>
+              <label>Payment method<select id="enrollmentPaymentMethod"><option value="visa">Visa</option><option value="mastercard">MasterCard</option><option value="verve">Verve</option><option value="paypal">PayPal</option><option value="paysera">Paysera</option><option value="airtm">Airtm</option></select></label>
+              <label>Payment reference<input id="enrollmentPaymentReference" type="text" autocomplete="off" placeholder="Card ending, wallet email, or account ID" /></label>
+            </div>
+            <p class="error-text" id="enrollmentPaymentError" role="alert"></p>
+            <div class="modal-actions"><button class="ghost-btn small" id="cancelEnrollmentPaymentBtn" type="button">Cancel</button><button class="primary-btn small" id="submitEnrollmentPaymentBtn" type="button">Request enrollment</button></div>
+          </div>
+        </div>
+
+        <section class="bottom-grid">
+          <article class="panel professor-panel">
+            <div class="panel-head">
+              <div>
+                <p class="tiny-label">Professor</p>
+                <h3>Meet your instructor</h3>
+              </div>
+            </div>
+
+            <div class="professor-card">
+              <div class="professor-main">
+                <div class="professor-avatar" id="displayAvatar"></div>
+                <div>
+                  <h4 id="displayName"></h4>
+                  <p id="displaySpecialty"></p>
+                </div>
+              </div>
+
+              <p class="bio" id="displayBio"></p>
+
+              <div class="professor-stats">
+                <div>
+                  <strong>0</strong>
+                  <span>Students</span>
+                </div>
+                <div>
+                  <strong>0%</strong>
+                  <span>Retention</span>
+                </div>
+                <div>
+                  <strong id="displayYears">14 yrs</strong>
+                  <span>Experience</span>
+                </div>
+              </div>
+
+              <button class="primary-btn full">View profile</button>
+            </div>
+          </article>
+
+          <article class="panel activity-panel">
+            <div class="panel-head">
+              <div>
+                <p class="tiny-label">Recent</p>
+                <h3>Subscriber activity</h3>
+              </div>
+            </div>
+
+            <ul class="activity-list">
+              <li>
+                  <li><p class="empty-state">No activity yet.</p></li>
+            </ul>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <section class="panel david-panel" id="davidPanel" style="display: none;">
+      <div class="panel-head">
+        <div>
+          <p class="tiny-label">AC Shop AI</p>
+          <h3>Ask David</h3>
+        </div>
+        <span class="mini-tag info">AI agent David</span>
+      </div>
+      <div class="david-messages" id="davidMessages" aria-live="polite">
+        <p class="david-message david-message-agent"><strong>David</strong><span>Ask me about AC Shop, products, sales, customers, or your account.</span></p>
+      </div>
+      <div class="david-compose">
+        <input id="davidInput" class="search-box" type="text" placeholder="Ask David a question" aria-label="Ask David a question" />
+        <button class="primary-btn small" id="davidSendBtn" type="button">Send</button>
+      </div>
+      <p class="error-text" id="davidError" role="alert"></p>
+    </section>
+
+    <script>
+      const isLocalPreview = window.location.protocol === 'file:'
+        || (['localhost', '127.0.0.1'].includes(window.location.hostname) && window.location.port !== '3000');
+      const API_BASE = isLocalPreview ? 'http://127.0.0.1:3000' : '';
+      const dashboardShell = document.getElementById('dashboardShell');
+      const landingWrap = document.querySelector('.landing-wrap');
+      const viewDashboardBtn = document.getElementById('viewDashboardBtn');
+      const professorName = document.getElementById('professorName');
+      const courseTitle = document.getElementById('courseTitle');
+      const courseSpecialty = document.getElementById('courseSpecialty');
+      const experienceYears = document.getElementById('experienceYears');
+      const professorEmail = document.getElementById('professorEmail');
+      const professorBio = document.getElementById('professorBio');
+      const adTextInput = document.getElementById('adTextInput');
+      const inspirationMessage = document.getElementById('inspirationMessage');
+      const payoutAmount = document.getElementById('payoutAmount');
+      const paymentMethod = document.getElementById('paymentMethod');
+      const paymentName = document.getElementById('paymentName');
+      const paymentAccount = document.getElementById('paymentAccount');
+      const revokePayoutPermissionBtn = document.getElementById('revokePayoutPermissionBtn');
+      const payoutPermissionStatus = document.getElementById('payoutPermissionStatus');
+      const profileImageInput = document.getElementById('profileImageInput');
+      const generateAdBtn = document.getElementById('generateAdBtn');
+      const membersSection = document.getElementById('membersSection');
+      const membersGrid = document.getElementById('membersGrid');
+      const navItems = document.querySelectorAll('.nav-item');
+      const memberCard = document.getElementById('memberCard');
+      const membersEmptyState = document.getElementById('membersEmptyState');
+      const davidPanel = document.getElementById('davidPanel');
+      const davidMessages = document.getElementById('davidMessages');
+      const davidInput = document.getElementById('davidInput');
+      const davidSendBtn = document.getElementById('davidSendBtn');
+      const davidError = document.getElementById('davidError');
+
+      const displayName = document.getElementById('displayName');
+      const displaySpecialty = document.getElementById('displaySpecialty');
+      const displayBio = document.getElementById('displayBio');
+      const displayYears = document.getElementById('displayYears');
+      const displayAvatar = document.getElementById('displayAvatar');
+      const miniAvatar = document.getElementById('miniAvatar');
+      const adProfessorName = document.getElementById('adProfessorName');
+      const adCourseName = document.getElementById('adCourseName');
+      const adPreviewText = document.getElementById('adPreviewText');
+      const adCourseBadge = document.getElementById('adCourseBadge');
+      const adBigTitle = document.getElementById('adBigTitle');
+      const adCard = document.getElementById('adCard');
+      const enrollLink = document.getElementById('enrollLink');
+      const deleteAdBtn = document.getElementById('deleteAdBtn');
+      const permissionModal = document.getElementById('permissionModal');
+      const permissionTitle = document.getElementById('permissionTitle');
+      const permissionText = document.getElementById('permissionText');
+      const allowAccessBtn = document.getElementById('allowAccessBtn');
+      const denyAccessBtn = document.getElementById('denyAccessBtn');
+      const profilePreview = document.getElementById('profilePreview');
+      const memberName = document.getElementById('memberName');
+      const memberCourse = document.getElementById('memberCourse');
+      const memberEmail = document.getElementById('memberEmail');
+      const memberAvatar = document.getElementById('memberAvatar');
+      const courseSearchInput = document.getElementById('courseSearchInput');
+      const courseResults = document.getElementById('courseResults');
+      const moreCoursesBtn = document.getElementById('moreCoursesBtn');
+      const discoveryPanel = document.getElementById('discoveryPanel');
+      const callCodeInput = document.getElementById('callCodeInput');
+      const joinCallBtn = document.getElementById('joinCallBtn');
+      const createCallBtn = document.getElementById('createCallBtn');
+      const createdCallCode = document.getElementById('createdCallCode');
+      const callError = document.getElementById('callError');
+      const enrollmentPaymentModal = document.getElementById('enrollmentPaymentModal');
+      const enrollmentPayerName = document.getElementById('enrollmentPayerName');
+      const enrollmentDuration = document.getElementById('enrollmentDuration');
+      const enrollmentProfessorRate = document.getElementById('enrollmentProfessorRate');
+      const enrollmentTotal = document.getElementById('enrollmentTotal');
+      const enrollmentPaymentMethod = document.getElementById('enrollmentPaymentMethod');
+      const enrollmentPaymentReference = document.getElementById('enrollmentPaymentReference');
+      const enrollmentPaymentError = document.getElementById('enrollmentPaymentError');
+      const cancelEnrollmentPaymentBtn = document.getElementById('cancelEnrollmentPaymentBtn');
+      const submitEnrollmentPaymentBtn = document.getElementById('submitEnrollmentPaymentBtn');
+
+      let pendingMailto = '';
+      let pendingAction = 'enroll';
+      let paymentPermissionGranted = localStorage.getItem('acShopPayoutConsent') === 'true';
+
+      function addDavidMessage(text, isAgent) {
+        const message = document.createElement('p');
+        message.className = `david-message ${isAgent ? 'david-message-agent' : 'david-message-user'}`;
+        const label = document.createElement('strong');
+        label.textContent = isAgent ? 'David' : 'You';
+        const content = document.createElement('span');
+        content.textContent = text;
+        message.append(label, content);
+        if (isAgent) {
+          const actions = document.createElement('span');
+          actions.className = 'david-actions';
+          [['up', '👍'], ['down', '👎'], ['message', '✉']].forEach(([type, icon]) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'david-action';
+            button.textContent = icon;
+            button.title = type === 'message' ? 'Message AC Shop' : `David feedback: ${type}`;
+            button.addEventListener('click', () => sendDavidFeedback(type, davidInput.dataset.lastQuestion || '', text));
+            actions.appendChild(button);
+          });
+          message.appendChild(actions);
+        }
+        davidMessages.appendChild(message);
+        davidMessages.scrollTop = davidMessages.scrollHeight;
+      }
+
+      async function sendDavidFeedback(type, userMessage, davidResponse) {
+        try {
+          await apiRequest('/api/david/feedback', {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}` },
+            body: JSON.stringify({ type, userMessage, davidResponse })
+          });
+          davidError.textContent = 'Feedback sent.';
+          davidError.classList.add('visible');
+        } catch (error) {
+          davidError.textContent = error.message;
+          davidError.classList.add('visible');
+        }
+      }
+
+      async function askDavid() {
+        const message = davidInput.value.trim();
+        if (!message) return;
+        davidInput.dataset.lastQuestion = message;
+        addDavidMessage(message, false);
+        davidInput.value = '';
+        davidSendBtn.disabled = true;
+        davidSendBtn.textContent = 'Loading...';
+        try {
+          const result = await apiRequest('/api/david/chat', {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}` },
+            body: JSON.stringify({ message })
+          });
+          addDavidMessage(result.answer, true);
+        } catch (error) {
+          davidError.textContent = error.message;
+          davidError.classList.add('visible');
+        } finally {
+          davidSendBtn.disabled = false;
+          davidSendBtn.textContent = 'Send';
+        }
+      }
+
+      davidSendBtn.addEventListener('click', askDavid);
+      davidInput.addEventListener('keydown', event => {
+        if (event.key === 'Enter') askDavid();
+      });
+      let courseAds = [];
+      let activeAdId = null;
+      let selectedProfessorRate = 20;
+
+      function getCurrentUserEmail() {
+        try {
+          const tokenParts = (localStorage.getItem('acShopToken') || '').split('.');
+          return tokenParts[1] ? JSON.parse(atob(tokenParts[1])).email.toLowerCase() : '';
+        } catch (error) {
+          return '';
+        }
+      }
+
+      function updateEnrollmentTotal() {
+        const hours = Number(enrollmentDuration.value) || 1;
+        const total = hours * (selectedProfessorRate + 5);
+        enrollmentProfessorRate.textContent = `$${selectedProfessorRate.toFixed(2)} / hour`;
+        enrollmentTotal.textContent = `$${total.toFixed(2)}`;
+      }
+
+      function openEnrollmentPayment() {
+        enrollmentPaymentError.textContent = '';
+        enrollmentPaymentError.classList.remove('visible');
+        enrollmentPaymentModal.classList.add('visible');
+        enrollmentPaymentModal.setAttribute('aria-hidden', 'false');
+        selectedProfessorRate = Math.max(0, getPayoutSummary().entered);
+        updateEnrollmentTotal();
+        enrollmentPayerName.focus();
+      }
+
+      function closeEnrollmentPayment() {
+        enrollmentPaymentModal.classList.remove('visible');
+        enrollmentPaymentModal.setAttribute('aria-hidden', 'true');
+      }
+
+      async function submitEnrollmentPayment() {
+        const name = enrollmentPayerName.value.trim();
+        const reference = enrollmentPaymentReference.value.trim();
+        const hours = Number(enrollmentDuration.value) || 1;
+        if (!name || !reference) {
+          enrollmentPaymentError.textContent = 'Enter your full name and payment reference to continue.';
+          enrollmentPaymentError.classList.add('visible');
+          return;
+        }
+
+        submitEnrollmentPaymentBtn.disabled = true;
+        try {
+          const result = await apiRequest('/api/enrollments', {
+            method: 'POST',
+            body: JSON.stringify({
+              learnerName: name,
+              professorEmail: professorEmail.value.trim(),
+              courseTitle: courseTitle.value.trim(),
+              hours,
+              hourlyRate: selectedProfessorRate,
+              paymentMethod: enrollmentPaymentMethod.value,
+              paymentReference: reference
+            })
+          });
+          closeEnrollmentPayment();
+          enrollmentPaymentReference.value = '';
+          if (result.approvalUrl) {
+            window.open(result.approvalUrl, '_blank', 'noopener');
+          } else {
+            alert(`Bill created for $${Number(result.amount).toFixed(2)}.`);
+          }
+        } catch (error) {
+          enrollmentPaymentError.textContent = error.message || 'Unable to create the enrollment bill.';
+          enrollmentPaymentError.classList.add('visible');
+        } finally {
+          submitEnrollmentPaymentBtn.disabled = false;
+        }
+      }
+
+      enrollmentDuration.addEventListener('change', updateEnrollmentTotal);
+
+      function showCallError(message = '') {
+        callError.textContent = message;
+        callError.classList.toggle('visible', Boolean(message));
+      }
+
+      joinCallBtn.addEventListener('click', async () => {
+        if (blockIfOffline()) return;
+        const code = callCodeInput.value.trim().toUpperCase();
+        showCallError('');
+
+        if (!/^[A-F0-9]{8}$/.test(code)) {
+          showCallError('Enter the 8-character call code from your professor.');
+          return;
+        }
+
+        try {
+          const result = await apiRequest(`/api/calls/${encodeURIComponent(code)}`);
+          window.open(result.call.joinUrl, '_blank', 'noopener');
+        } catch (error) {
+          showCallError(error.message || 'Unable to join that call.');
+        }
+      });
+
+      createCallBtn.addEventListener('click', async () => {
+        if (blockIfOffline()) return;
+        showCallError('');
+        createCallBtn.disabled = true;
+
+        try {
+          const result = await apiRequest('/api/calls', { method: 'POST' });
+          createdCallCode.textContent = result.call.code;
+          callCodeInput.value = result.call.code;
+          window.open(result.call.joinUrl, '_blank', 'noopener');
+        } catch (error) {
+          showCallError(error.message || 'Unable to create a live call.');
+        } finally {
+          createCallBtn.disabled = false;
+        }
+      });
+
+      async function apiRequest(path, options = {}) {
+        const token = localStorage.getItem('acShopToken');
+        const response = await fetch(`${API_BASE}${path}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            ...(options.headers || {})
+          },
+          ...options
+        });
+
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(data.message || 'Request failed');
+        }
+
+        return data;
+      }
+
+      function isOffline() {
+        return !navigator.onLine;
+      }
+
+      function blockIfOffline(message = 'You are offline. Please connect to the internet to continue.') {
+        if (isOffline()) {
+          alert(message);
+          return true;
+        }
+        return false;
+      }
+
+      function syncAdVisibility() {
+        const hasAd = adCard.classList.contains('full-profile');
+        adCard.style.display = hasAd ? 'block' : 'none';
+      }
+
+      function buildDeleteLink() {
+        const nameValue = professorName.value.trim() || 'Professor';
+        const emailValue = professorEmail.value.trim();
+        const baseUrl = window.location.href.includes('?')
+          ? window.location.href.split('?')[0]
+          : window.location.href;
+        const url = new URL('website.html', baseUrl);
+        url.searchParams.set('returnToDelete', 'true');
+        url.searchParams.set('name', nameValue);
+        url.searchParams.set('email', emailValue);
+        return url.toString();
+      }
+
+      function renderCourseResults(query = '') {
+        const term = query.trim().toLowerCase();
+
+        const ranked = courseAds
+          .map(ad => {
+            if (!term) {
+              return { ...ad, score: 0 };
+            }
+
+            const searchable = [ad.name, ad.course, ad.specialty, ad.bio, ad.email].join(' ').toLowerCase();
+            let score = 0;
+
+            if (searchable.includes(term)) score += 10;
+            if (ad.course.toLowerCase().includes(term)) score += 6;
+            if (ad.name.toLowerCase().includes(term)) score += 5;
+            if (ad.specialty.toLowerCase().includes(term)) score += 4;
+            if (ad.bio.toLowerCase().includes(term)) score += 2;
+
+            return { ...ad, score };
+          })
+          .filter(ad => !term || ad.score > 0)
+          .sort((a, b) => b.score - a.score);
+
+        if (!ranked.length) {
+          courseResults.innerHTML = '<p class="empty-state">No matching courses found.</p>';
+          return;
+        }
+
+        courseResults.innerHTML = ranked.map(ad => `
+          <article class="discovery-card">
+            <div class="discovery-header">
+              <div class="mini-avatar">${ad.name.split(' ').map(part => part[0]).slice(0, 2).join('').toUpperCase()}</div>
+              <div>
+                <h4>${ad.name}</h4>
+                <span>${ad.course}</span>
+              </div>
+            </div>
+            <p>${ad.bio}</p>
+            <div class="discovery-meta">
+              <span>${ad.specialty}</span>
+              <button class="primary-btn small enroll-course-btn" type="button" data-course="${ad.course}" data-professor="${ad.name}">Enroll</button>
+            </div>
+          </article>
+        `).join('');
+      }
+
+      function getPayoutSummary() {
+        const entered = Number(payoutAmount.value) || 0;
+        const minimum = 15;
+        const base = entered >= minimum ? entered + 5 : minimum;
+        const platformContribution = entered >= minimum ? 5 : 0;
+        const finalAmount = Math.max(base, minimum);
+
+        return {
+          entered,
+          minimum,
+          platformContribution,
+          finalAmount,
+          label: finalAmount >= 15 ? `$${finalAmount.toFixed(2)}` : `$15.00`
+        };
+      }
+
+      function validateAdRequirements() {
+        const messageValue = inspirationMessage.value.trim();
+        const enteredAmount = Number(payoutAmount.value) || 0;
+        const method = paymentMethod.value;
+        const accountValue = paymentAccount.value.trim();
+        const nameValue = paymentName.value.trim();
+
+        if (!messageValue || messageValue.length < 40) {
+          alert('Your letter of inspiration must be at least 40 characters long.');
+          inspirationMessage.focus();
+          return false;
+        }
+
+        if (enteredAmount < 15) {
+          alert('Your minimum payout amount must be at least $15.');
+          payoutAmount.focus();
+          return false;
+        }
+
+        if (!nameValue) {
+          alert('Please add the account holder name for payment setup.');
+          paymentName.focus();
+          return false;
+        }
+
+        if (!accountValue) {
+          alert('Please add your payment account details for the selected method.');
+          paymentAccount.focus();
+          return false;
+        }
+
+        if (['visa', 'mastercard', 'verve'].includes(method) && accountValue.length < 12) {
+          alert('Please enter a valid card number for your selected payment method.');
+          paymentAccount.focus();
+          return false;
+        }
+
+        if (method === 'payPal' && !accountValue.includes('@')) {
+          alert('Please enter a valid PayPal email address.');
+          paymentAccount.focus();
+          return false;
+        }
+
+        if (['paysera', 'airtm'].includes(method) && accountValue.length < 6) {
+          alert('Please enter a valid Paysera or Airtm account ID/email.');
+          paymentAccount.focus();
+          return false;
+        }
+
+        return true;
+      }
+
+      function updateProfessorInfo() {
+        const nameValue = professorName.value.trim() || 'Your name';
+        const specialtyValue = courseSpecialty.value.trim() || 'Your specialty';
+        const bioValue = professorBio.value.trim() || 'Your profile bio will appear here.';
+        const yearsValue = experienceYears.value.trim() || '0 years';
+        const courseValue = courseTitle.value.trim() || 'Your course';
+        const emailValue = professorEmail.value.trim();
+
+        displayName.textContent = nameValue;
+        displaySpecialty.textContent = specialtyValue;
+        displayBio.textContent = bioValue;
+        displayYears.textContent = yearsValue;
+        adProfessorName.textContent = nameValue;
+        adCourseName.textContent = courseValue;
+        adCourseBadge.textContent = courseValue;
+        adBigTitle.textContent = `Learn ${courseValue.toLowerCase()} with ${nameValue}`;
+
+        const initials = nameValue
+          .split(' ')
+          .map(part => part[0])
+          .slice(0, 2)
+          .join('')
+          .toUpperCase();
+
+        displayAvatar.textContent = initials;
+        miniAvatar.textContent = initials;
+
+      }
+
+      function updateAdPreview() {
+        const text = adTextInput.value.trim() || 'Your course description will appear here.';
+        const inspirationValue = inspirationMessage.value.trim() || 'Your inspiration message will appear here.';
+        const payoutSummary = getPayoutSummary();
+        const methodLabel = paymentMethod.options[paymentMethod.selectedIndex]?.text || 'Payment method';
+
+        adPreviewText.textContent = text;
+        adBigTitle.textContent = `${adPreviewText.textContent} with real support and mentorship.`;
+
+        const inspirationNode = document.getElementById('adInspirationText');
+        if (inspirationNode) {
+          inspirationNode.textContent = inspirationValue;
+        }
+
+        const payoutNode = document.getElementById('adPayoutLabel');
+        if (payoutNode) {
+          payoutNode.textContent = `${payoutSummary.label} total payout`;
+        }
+
+        const methodNode = document.getElementById('adPaymentMethod');
+        if (methodNode) {
+          methodNode.textContent = `${methodLabel} • hourly payout`;
+        }
+      }
+
+      function speakPermissionNote(messageText = 'scroll up and allow AC Shop to access your email for updated information') {
+        if (!('speechSynthesis' in window)) return;
+
+        window.speechSynthesis.cancel();
+        const message = new SpeechSynthesisUtterance(messageText);
+        message.rate = 1;
+        message.pitch = 1.1;
+        message.volume = 1;
+        window.speechSynthesis.speak(message);
+      }
+
+      function openPermissionModal(action = 'enroll') {
+        const emailValue = professorEmail.value.trim();
+        const courseValue = courseTitle.value.trim() || 'your course';
+        const nameValue = professorName.value.trim() || 'the professor';
+        pendingAction = action;
+
+        if (action === 'payment_access') {
+          permissionTitle.textContent = 'Allow access to your payout account?';
+          permissionText.textContent = 'Nova Learn needs your permission to access the selected payout account so lesson payments can be sent securely.';
+          permissionModal.classList.add('visible');
+          permissionModal.setAttribute('aria-hidden', 'false');
+          speakPermissionNote('please allow AC Shop to access your payout account for secure transactions');
+          return;
+        }
+
+        if (action === 'create_ad') {
+          const thankYouUrl = buildDeleteLink();
+          const subject = encodeURIComponent('Thank you for choosing Nova Learn');
+          const body = encodeURIComponent(
+            `Hello ${nameValue},\n\nThank you for choosing Nova Learn. We are excited to help you share your expertise with learners around the world.\n\nYour ad has been created successfully and is now live on our platform.\n\nPlease click the button below to return to Nova Learn and manage your ad:\n\n[ Delete my ad ]\n${thankYouUrl}\n\nOnce you are back on the website, press the Delete ad button to remove the ad.\n\nWe look forward to helping you grow.\n\nWarm regards,\nNova Learn Team`
+          );
+          pendingMailto = `mailto:${emailValue}?subject=${subject}&body=${body}`;
+          permissionTitle.textContent = 'Send a thank-you email to this professor?';
+          permissionText.textContent = 'This will send a confirmation message and include a return link back to the website so the professor can remove the ad later.';
+        }
+
+        if (action === 'delete_ad') {
+          const subject = encodeURIComponent('Your ad deletion has been confirmed');
+          const body = encodeURIComponent(
+            `Hello ${nameValue},\n\nThis is to confirm that your ad has been successfully deleted from Nova Learn.\n\nYour listing is no longer active, and you can create a new ad at any time from the dashboard.\n\nWe appreciate your time with Nova Learn.\n\nWarm regards,\nNova Learn Team`
+          );
+          pendingMailto = `mailto:${emailValue}?subject=${subject}&body=${body}`;
+          permissionTitle.textContent = 'Send deletion confirmation to the professor?';
+          permissionText.textContent = 'This will email the professor to confirm that their ad has been removed successfully.';
+        }
+
+        permissionModal.classList.add('visible');
+        permissionModal.setAttribute('aria-hidden', 'false');
+        speakPermissionNote();
+      }
+
+      function closePermissionModal() {
+        permissionModal.classList.remove('visible');
+        permissionModal.setAttribute('aria-hidden', 'true');
+      }
+
+      function refreshPayoutPermissionUI() {
+        if (!payoutPermissionStatus || !revokePayoutPermissionBtn) return;
+
+        if (paymentPermissionGranted) {
+          payoutPermissionStatus.textContent = 'Payout access: allowed';
+          revokePayoutPermissionBtn.textContent = 'Revoke payout permission';
+        } else {
+          payoutPermissionStatus.textContent = 'Payout access: revoked';
+          revokePayoutPermissionBtn.textContent = 'Grant payout permission';
+        }
+      }
+
+      function updateMembersView() {
+        const hasAd = adCard.classList.contains('full-profile');
+        const nameValue = professorName.value.trim() || 'the professor';
+        const courseValue = courseTitle.value.trim() || 'the course';
+        const emailValue = professorEmail.value.trim();
+        const initials = nameValue
+          .split(' ')
+          .map(part => part[0])
+          .slice(0, 2)
+          .join('')
+          .toUpperCase();
+
+        memberCard.classList.toggle('is-hidden', !hasAd);
+        membersEmptyState.classList.toggle('is-hidden', hasAd);
+        syncAdVisibility();
+
+        if (hasAd) {
+          memberName.textContent = nameValue;
+          memberCourse.textContent = courseValue;
+          memberEmail.textContent = emailValue;
+          memberAvatar.textContent = initials;
+        }
+      }
+
+      function updateMoreCoursesVisibility() {
+        const visible = courseAds.length > 10;
+        moreCoursesBtn.classList.toggle('is-hidden', !visible);
+        discoveryPanel.classList.toggle('is-hidden', !visible);
+      }
+
+      function setActiveNav(target) {
+        navItems.forEach(item => {
+          item.classList.toggle('active', item.dataset.nav === target);
+        });
+      }
+
+      function toggleDashboardSections(view) {
+        const sectionsToHide = document.querySelectorAll('.curriculum-section, .instructor-panel, .bottom-grid');
+        const showMembers = view === 'members';
+
+        sectionsToHide.forEach(section => {
+          section.classList.toggle('is-hidden', showMembers);
+        });
+
+        if (showMembers && !adCard.classList.contains('full-profile')) {
+          membersEmptyState.classList.remove('is-hidden');
+          memberCard.classList.add('is-hidden');
+        } else if (showMembers) {
+          membersEmptyState.classList.add('is-hidden');
+          memberCard.classList.remove('is-hidden');
+        }
+
+        membersSection.classList.toggle('is-hidden', !showMembers);
+        setActiveNav(view);
+      }
+
+      generateAdBtn.addEventListener('click', () => {
+        if (blockIfOffline()) return;
+
+        if (!paymentPermissionGranted) {
+          openPermissionModal('payment_access');
+          return;
+        }
+
+        if (!validateAdRequirements()) {
+          return;
+        }
+
+        updateProfessorInfo();
+        updateAdPreview();
+        openPermissionModal('create_ad');
+      });
+
+      moreCoursesBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        courseSearchInput.focus();
+      });
+
+      courseSearchInput.addEventListener('input', (event) => {
+        renderCourseResults(event.target.value);
+      });
+
+      courseResults.addEventListener('click', (event) => {
+        const button = event.target.closest('.enroll-course-btn');
+        if (!button || blockIfOffline()) return;
+        openEnrollmentPayment();
+      });
+
+      deleteAdBtn.addEventListener('click', () => {
+        if (blockIfOffline()) return;
+        openPermissionModal('delete_ad');
+      });
+
+      navItems.forEach(item => {
+        item.addEventListener('click', (event) => {
+          event.preventDefault();
+          if (blockIfOffline()) return;
+          const target = item.dataset.nav;
+          if (target === 'members') {
+            const hasAd = adCard.classList.contains('full-profile');
+            const nameValue = professorName.value.trim();
+            const courseValue = courseTitle.value.trim();
+            const emailValue = professorEmail.value.trim();
+            const bioValue = professorBio.value.trim();
+
+            if (hasAd) {
+              const params = new URLSearchParams({
+                ad: 'true',
+                name: nameValue,
+                course: courseValue,
+                email: emailValue,
+                bio: bioValue
+              });
+              window.location.href = `members.html?${params.toString()}`;
+            } else {
+              window.location.href = 'members.html';
+            }
+            return;
+          }
+          toggleDashboardSections('overview');
+          setActiveNav(target);
+        });
+      });
+
+      enrollLink.addEventListener('click', (event) => {
+        if (blockIfOffline()) return;
+        openEnrollmentPayment();
+      });
+
+      cancelEnrollmentPaymentBtn.addEventListener('click', closeEnrollmentPayment);
+      submitEnrollmentPaymentBtn.addEventListener('click', submitEnrollmentPayment);
+
+      allowAccessBtn.addEventListener('click', async () => {
+        if (blockIfOffline()) return;
+
+        if (pendingAction === 'payment_access') {
+          try {
+            await apiRequest('/api/payments/consent', {
+              method: 'POST',
+              body: JSON.stringify({
+                provider: paymentMethod.value,
+                accountReference: paymentAccount.value.trim()
+              })
+            });
+
+            paymentPermissionGranted = true;
+            localStorage.setItem('acShopPayoutConsent', 'true');
+            refreshPayoutPermissionUI();
+            closePermissionModal();
+            generateAdBtn.click();
+          } catch (error) {
+            alert(error.message || 'Unable to grant payout permission.');
+          }
+          return;
+        }
+
+        if (pendingAction === 'create_ad') {
+          try {
+            const payoutSummary = getPayoutSummary();
+            const adPayload = {
+              professorName: professorName.value.trim(),
+              courseTitle: courseTitle.value.trim(),
+              specialty: courseSpecialty.value.trim(),
+              email: professorEmail.value.trim(),
+              bio: professorBio.value.trim(),
+              inspiration: inspirationMessage.value.trim(),
+              payoutAmount: payoutSummary.entered,
+              paymentMethod: paymentMethod.value,
+              paymentAccount: paymentAccount.value.trim(),
+              paymentName: paymentName.value.trim(),
+              payoutSchedule: 'Hourly while lessons are active'
+            };
+
+            const result = await apiRequest('/api/ads', {
+              method: 'POST',
+              body: JSON.stringify(adPayload)
+            });
+
+            adCard.classList.add('full-profile');
+            updateMembersView();
+            generateAdBtn.textContent = 'Ad ready';
+
+            const currentAd = {
+              id: result.ad.id,
+              name: adPayload.professorName,
+              course: adPayload.courseTitle,
+              specialty: adPayload.specialty,
+              email: adPayload.email,
+              bio: adPayload.bio,
+              inspiration: adPayload.inspiration,
+              payoutAmountValue: adPayload.payoutAmount,
+              paymentMethod: adPayload.paymentMethod,
+              paymentAccount: adPayload.paymentAccount,
+              paymentName: adPayload.paymentName,
+              payoutSchedule: adPayload.payoutSchedule
+            };
+
+            courseAds.unshift(currentAd);
+            updateMoreCoursesVisibility();
+            renderCourseResults(courseSearchInput.value);
+            alert(result.message || 'Ad created successfully.');
+          } catch (error) {
+            alert(error.message || 'Unable to create ad.');
+          }
+        }
+
+        if (pendingAction === 'delete_ad') {
+          if (!activeAdId) {
+            alert('No saved ad is available to delete.');
+            closePermissionModal();
+            return;
+          }
+
+          try {
+            const result = await apiRequest(`/api/ads/${encodeURIComponent(activeAdId)}`, { method: 'DELETE' });
+            const deletedAdId = activeAdId;
+            adCard.classList.remove('full-profile');
+            activeAdId = null;
+            courseAds = courseAds.filter(ad => ad.id !== deletedAdId);
+            updateMembersView();
+            generateAdBtn.textContent = 'Create ad';
+            alert(result.message || 'Ad deleted successfully.');
+          } catch (error) {
+            alert(error.message || 'Unable to delete the ad.');
+            closePermissionModal();
+            return;
+          }
+        }
+
+        if (pendingMailto) {
+          window.location.href = pendingMailto;
+        }
+        closePermissionModal();
+      });
+
+      revokePayoutPermissionBtn.addEventListener('click', async () => {
+        try {
+          await apiRequest('/api/payments/revoke-consent', { method: 'POST' });
+          paymentPermissionGranted = false;
+          localStorage.setItem('acShopPayoutConsent', 'false');
+          refreshPayoutPermissionUI();
+          alert('Payout permission has been revoked.');
+        } catch (error) {
+          alert(error.message || 'Unable to revoke payout permission right now.');
+        }
+      });
+
+      denyAccessBtn.addEventListener('click', () => {
+        if (isOffline()) {
+          alert('You are offline. Please connect to the internet to continue.');
+          return;
+        }
+        closePermissionModal();
+      });
+
+      [professorName, courseTitle, courseSpecialty, experienceYears, professorEmail, professorBio, adTextInput, inspirationMessage, payoutAmount, paymentMethod, paymentName, paymentAccount].forEach(input => {
+        input.addEventListener('input', () => {
+          if (isOffline()) return;
+          updateProfessorInfo();
+          updateAdPreview();
+        });
+      });
+
+      profileImageInput.addEventListener('change', (event) => {
+        if (blockIfOffline()) return;
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const imageUrl = e.target.result;
+          profilePreview.style.backgroundImage = `url('${imageUrl}')`;
+          profilePreview.style.backgroundSize = 'cover';
+          profilePreview.style.backgroundPosition = 'center';
+          profilePreview.innerHTML = '';
+
+          displayAvatar.style.backgroundImage = `url('${imageUrl}')`;
+          displayAvatar.style.backgroundSize = 'cover';
+          displayAvatar.style.backgroundPosition = 'center';
+          displayAvatar.textContent = '';
+          miniAvatar.style.backgroundImage = `url('${imageUrl}')`;
+          miniAvatar.style.backgroundSize = 'cover';
+          miniAvatar.style.backgroundPosition = 'center';
+          miniAvatar.textContent = '';
+        };
+        reader.readAsDataURL(file);
+      });
+
+      const dashboardUrlParams = new URLSearchParams(window.location.search);
+      const isLoggedIn = localStorage.getItem('acShopSession') === 'true';
+      const token = localStorage.getItem('acShopToken');
+
+      async function getVerifiedAccount() {
+        const response = await fetch(`${API_BASE}/api/auth/me`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.message || 'Your account could not be verified.');
+        return data.user;
+      }
+
+      async function loadLiveStats() {
+        const response = await fetch(`${API_BASE}/api/auth/stats`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.message || 'Unable to load live stats.');
+
+        document.getElementById('subscriberCount').textContent = data.subscribers.toLocaleString();
+        document.getElementById('revenueTotal').textContent = `$${Number(data.revenue).toFixed(2)}`;
+        document.getElementById('completionRate').textContent = `${data.completionRate}%`;
+        document.getElementById('subscriberMeta').textContent = `${data.subscribers.toLocaleString()} verified accounts`;
+        document.getElementById('revenueMeta').textContent = `${data.enrollmentCount.toLocaleString()} enrollments tracked`;
+        document.getElementById('completionMeta').textContent = 'Completed enrollments / all enrollments';
+      }
+
+      viewDashboardBtn.addEventListener('click', async () => {
+        if (!isLoggedIn || !token) {
+          window.location.href = 'login.html';
+          return;
+        }
+
+        try {
+          const account = await getVerifiedAccount();
+          if (!account.email_verified) document.getElementById('accountVerificationNotice').style.display = 'block';
+        } catch (error) {
+          localStorage.removeItem('acShopSession');
+          localStorage.removeItem('acShopToken');
+          window.location.href = 'login.html';
+          return;
+        }
+
+        landingWrap.style.display = 'none';
+        dashboardShell.style.display = 'flex';
+        davidPanel.style.display = 'block';
+        if (account.email_verified) {
+          await loadLiveStats();
+        } else {
+          document.getElementById('subscriberMeta').textContent = 'Verify your account to view live stats';
+          document.getElementById('revenueMeta').textContent = 'Verify your account to view live stats';
+          document.getElementById('completionMeta').textContent = 'Verify your account to view live stats';
+        }
+        loadDashboardAds();
+      });
+
+      async function loadDashboardAds() {
+        try {
+          const response = await fetch(`${API_BASE}/api/ads`, {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            }
+          });
+
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            throw new Error(data.message || 'Unable to load ads');
+          }
+
+          const ads = Array.isArray(data.ads) ? data.ads : [];
+          courseAds = ads.map(ad => ({
+            id: ad.id,
+            name: ad.professor_name,
+            course: ad.course_title,
+            specialty: ad.specialty,
+            email: ad.email || ad.user_email,
+            bio: ad.bio,
+            inspiration: ad.inspiration,
+            payoutAmountValue: ad.payout_amount,
+            paymentMethod: ad.payment_method,
+            paymentAccount: ad.payment_account,
+            paymentName: ad.payment_name,
+            payoutSchedule: ad.payout_schedule
+          }));
+
+          const ownEmail = getCurrentUserEmail() || professorEmail.value.trim().toLowerCase();
+          const ownAd = ads.find(ad => ad.user_email === ownEmail || ad.email === ownEmail);
+          activeAdId = ownAd ? ownAd.id : null;
+
+          updateMoreCoursesVisibility();
+          renderCourseResults(courseSearchInput.value);
+        } catch (error) {
+          courseAds = [];
+          renderCourseResults(courseSearchInput.value);
+        }
+      }
+
+      dashboardShell.style.display = 'none';
+
+      if (dashboardUrlParams.get('returnToDelete') === 'true') {
+        const emailValue = dashboardUrlParams.get('email') || professorEmail.value.trim();
+        const nameValue = dashboardUrlParams.get('name') || professorName.value.trim() || 'your';
+
+        deleteAdBtn.classList.add('ready-delete');
+        deleteAdBtn.textContent = 'Delete ad now';
+        deleteAdBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        deleteAdBtn.setAttribute('title', `Delete ${nameValue}'s ad`);
+
+        const infoNotice = document.createElement('p');
+        infoNotice.className = 'delete-notice';
+        infoNotice.textContent = 'Your ad is ready to be deleted. Click the Delete ad button below to confirm.';
+        deleteAdBtn.parentNode.insertBefore(infoNotice, deleteAdBtn.nextSibling);
+
+        const noteName = document.createElement('p');
+        noteName.className = 'delete-name-note';
+        noteName.textContent = `Manage your ad for ${nameValue}.`;
+        deleteAdBtn.parentNode.insertBefore(noteName, deleteAdBtn);
+
+        deleteAdBtn.onclick = () => {
+          openPermissionModal('delete_ad');
+        };
+      }
+
+      adCard.classList.remove('full-profile');
+      updateProfessorInfo();
+      updateAdPreview();
+      updateMembersView();
+      syncAdVisibility();
+      renderCourseResults();
+      updateMoreCoursesVisibility();
+    </script>
+  </body>
+</html>

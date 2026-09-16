@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AC Shop | Login</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="website.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 30px;
+      }
+
+      .auth-shell {
+        width: min(1100px, 100%);
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        background: rgba(9, 17, 28, 0.8);
+        border: 1px solid var(--border);
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .auth-visual {
+        padding: 48px 34px;
+        display: grid;
+        place-items: center;
+        background: #081416;
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .auth-visual-inner {
+        text-align: center;
+        max-width: 420px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .brand-mark {
+        width: 120px;
+        height: 120px;
+        border-radius: 30px;
+        display: grid;
+        place-items: center;
+        margin: 0 auto 20px;
+        font-size: 3.2rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--purple), var(--teal));
+        color: #fff;
+        box-shadow: 0 22px 48px rgba(109, 94, 252, 0.42);
+        transform: rotate(-8deg);
+      }
+
+      .brand-wordmark {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        gap: 10px;
+        font-size: clamp(1.8rem, 3vw, 2.7rem);
+        letter-spacing: 0;
+        margin-bottom: 16px;
+      }
+
+      .auth-visual p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .auth-form-panel {
+        background: rgba(9, 17, 28, 0.82);
+        padding: 40px 34px;
+      }
+
+      .auth-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+
+      .auth-tab {
+        flex: 1;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,0.02);
+        color: var(--muted);
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .auth-tab.active {
+        background: linear-gradient(135deg, var(--purple-2), var(--purple));
+        color: white;
+        border-color: transparent;
+      }
+
+      .auth-block {
+        display: none;
+      }
+
+      .auth-block.active {
+        display: block;
+      }
+
+      .auth-block h2 {
+        margin: 0 0 16px;
+        font-size: clamp(1.8rem, 3vw, 2.4rem);
+        letter-spacing: 0;
+      }
+
+      .auth-block p {
+        margin: 0 0 20px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .form-field {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .form-field label {
+        color: var(--muted);
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .form-field input {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: rgba(255,255,255,0.02);
+        color: var(--text);
+        padding: 12px 14px;
+        font: inherit;
+      }
+
+      .phone-fields {
+        display: grid;
+        grid-template-columns: minmax(130px, 0.7fr) 1fr;
+        gap: 8px;
+      }
+
+      .phone-fields select,
+      .country-select {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: rgba(255,255,255,0.02);
+        color: var(--text);
+        padding: 12px 14px;
+        font: inherit;
+      }
+
+      .phone-fields option,
+      .country-select option {
+        color: #132522;
+      }
+
+      .password-wrap {
+        position: relative;
+      }
+
+      .password-wrap input {
+        padding-right: 46px;
+      }
+
+      .toggle-password {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        background: transparent;
+        color: var(--muted);
+        font-size: 1.1rem;
+        cursor: pointer;
+        padding: 4px;
+      }
+
+      .inline-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-top: 6px;
+        margin-bottom: 18px;
+      }
+
+      .inline-actions a {
+        color: #c1b8ff;
+        text-decoration: none;
+        font-size: 0.82rem;
+      }
+
+      .verification-box {
+        display: none;
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 14px;
+        background: rgba(45, 212, 191, 0.08);
+        border: 1px solid rgba(45, 212, 191, 0.2);
+      }
+
+      .verification-box.visible {
+        display: block;
+      }
+
+      .verification-box strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .verification-box p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .error-text {
+        color: #ff9a9a;
+        font-size: 0.8rem;
+        display: none;
+        margin-top: 8px;
+      }
+
+      .error-text.visible {
+        display: block;
+      }
+
+      .network-status {
+        display: none;
+        margin: 0 0 18px;
+        padding: 11px 14px;
+        border: 1px solid rgba(232, 189, 104, 0.35);
+        border-radius: 12px;
+        color: var(--gold);
+        background: rgba(232, 189, 104, 0.08);
+        font-size: 0.85rem;
+      }
+
+      .network-status.visible {
+        display: block;
+      }
+
+      button.is-loading {
+        cursor: wait;
+        opacity: 0.72;
+      }
+
+      .auth-loading-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        display: none;
+        place-items: center;
+        background: rgba(4, 12, 13, 0.72);
+        backdrop-filter: blur(5px);
+      }
+
+      .auth-loading-overlay.visible {
+        display: grid;
+      }
+
+      .auth-loading-card {
+        display: grid;
+        justify-items: center;
+        gap: 14px;
+        min-width: 210px;
+        padding: 26px 30px;
+        border: 1px solid rgba(130, 216, 186, 0.24);
+        border-radius: 18px;
+        background: rgba(19, 35, 32, 0.96);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
+      }
+
+      .auth-spinner {
+        width: 42px;
+        height: 42px;
+        border: 4px solid rgba(130, 216, 186, 0.2);
+        border-top-color: var(--teal);
+        border-right-color: var(--purple);
+        border-radius: 50%;
+        animation: auth-spin 0.85s linear infinite;
+      }
+
+      .auth-loading-label {
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      .auth-loading-dots::after {
+        content: "";
+        display: inline-block;
+        width: 1.5em;
+        text-align: left;
+        animation: auth-dots 1.2s steps(4, end) infinite;
+      }
+
+      @keyframes auth-spin { to { transform: rotate(360deg); } }
+      @keyframes auth-dots {
+        0% { content: ""; }
+        25% { content: "."; }
+        50% { content: ".."; }
+        75%, 100% { content: "..."; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .auth-spinner, .auth-loading-dots::after { animation: none; }
+        .auth-loading-dots::after { content: "..."; }
+      }
+
+      @media (max-width: 840px) {
+        .auth-shell {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="auth-loading-overlay" id="authLoadingOverlay" role="status" aria-live="polite" aria-busy="false">
+      <div class="auth-loading-card">
+        <div class="auth-spinner" aria-hidden="true"></div>
+        <div class="auth-loading-label">Please wait<span class="auth-loading-dots" aria-hidden="true"></span></div>
+      </div>
+    </div>
+    <main class="auth-shell">
+      <section class="auth-visual">
+        <div class="hero-motion" aria-hidden="true">
+          <div class="motion-grid"></div>
+          <div class="motion-orbit motion-orbit-one"></div>
+          <div class="motion-orbit motion-orbit-two"></div>
+          <div class="motion-node motion-node-one"></div>
+          <div class="motion-node motion-node-two"></div>
+          <div class="motion-node motion-node-three"></div>
+        </div>
+        <div class="auth-visual-inner">
+          <div class="hero-sequence" aria-label="AC Shop loading sequence">
+            <span class="sequence-prompt">./open-shop</span>
+            <span class="sequence-name">AC Shop</span>
+            <span class="sequence-cursor"></span>
+          </div>
+          <div class="brand-mark">A</div>
+          <div class="brand-wordmark">
+            <span>AC</span>
+            <strong>Shop</strong>
+          </div>
+          <p>
+            Shop smarter with premium products, better experiences, and a platform built for confident growth.
+          </p>
+        </div>
+      </section>
+
+      <section class="auth-form-panel">
+        <p class="network-status" id="networkStatus" role="status"></p>
+        <div class="auth-tabs">
+          <button class="auth-tab active" type="button" data-mode="login">Login</button>
+          <button class="auth-tab" type="button" data-mode="signup">Sign up</button>
+        </div>
+
+        <div class="auth-download-row">
+          <a class="auth-download-btn" href="ondownload.html">Download for Mac, iPhone & Android</a>
+        </div>
+
+        <div class="auth-block active" id="loginBlock">
+          <h2>Welcome back</h2>
+          <p>Sign in with your account to access your ad and update your profile.</p>
+
+          <div class="form-field">
+            <label for="loginEmail">Email address</label>
+            <input id="loginEmail" type="email" placeholder="name@example.com" />
+          </div>
+
+          <div class="form-field">
+            <label for="loginPassword">Password</label>
+            <div class="password-wrap">
+              <input id="loginPassword" type="password" placeholder="Enter your password" />
+              <button class="toggle-password" type="button" aria-label="Show password" data-target="loginPassword">👁</button>
+            </div>
+          </div>
+
+          <div class="inline-actions">
+            <span></span>
+            <a href="#">Forgot password?</a>
+          </div>
+
+          <button class="primary-btn" id="loginBtn" type="button">Access account</button>
+          <p class="error-text" id="loginError">Incorrect email or password. Please try again.</p>
+        </div>
+
+        <div class="auth-block" id="signupBlock">
+          <h2>Create your account</h2>
+          <p>Register with your details and verify your account from a secure email link.</p>
+
+          <div class="form-field">
+            <label for="signupFirstName">First name</label>
+            <input id="signupFirstName" type="text" autocomplete="given-name" placeholder="Your first name" />
+          </div>
+
+          <div class="form-field">
+            <label for="signupLastName">Surname</label>
+            <input id="signupLastName" type="text" autocomplete="family-name" placeholder="Your surname" />
+          </div>
+
+          <div class="form-field">
+            <label for="signupEmail">Email address</label>
+            <input id="signupEmail" type="email" placeholder="name@example.com" />
+          </div>
+
+          <div class="form-field">
+            <label for="signupPassword">Password</label>
+            <div class="password-wrap">
+              <input id="signupPassword" type="password" placeholder="Create a strong password" />
+              <button class="toggle-password" type="button" aria-label="Show password" data-target="signupPassword">👁</button>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="signupPhone">Phone number</label>
+            <div class="phone-fields">
+              <select id="signupDialCode" aria-label="Country dialing code" autocomplete="tel-country-code"></select>
+              <input id="signupPhone" type="tel" autocomplete="tel-national" inputmode="tel" placeholder="Phone number" />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="signupCountry">Country</label>
+            <select id="signupCountry" class="country-select" autocomplete="country-name">
+              <option value="">Select your country</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="signupPostalCode">Postal code</label>
+            <input id="signupPostalCode" type="text" autocomplete="postal-code" placeholder="Your postal code" />
+          </div>
+
+          <button class="primary-btn" id="sendCodeBtn" type="button">Create account and send link</button>
+          <p class="error-text" id="signupError">Complete all required fields to continue.</p>
+
+          <div class="verification-box" id="verificationBox">
+            <strong>Check your email</strong>
+            <p>A verification link has been sent. Open it to verify your account, then return here and log in with your password.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const isLocalPreview = window.location.protocol === 'file:'
+        || (['localhost', '127.0.0.1'].includes(window.location.hostname) && window.location.port !== '3000');
+      const API_BASE = isLocalPreview ? 'http://127.0.0.1:3000' : '';
+      const loginEmail = document.getElementById('loginEmail');
+      const loginPassword = document.getElementById('loginPassword');
+      const loginBtn = document.getElementById('loginBtn');
+      const loginError = document.getElementById('loginError');
+
+      const signupEmail = document.getElementById('signupEmail');
+      const signupPassword = document.getElementById('signupPassword');
+      const signupFirstName = document.getElementById('signupFirstName');
+      const signupLastName = document.getElementById('signupLastName');
+      const signupPhone = document.getElementById('signupPhone');
+      const signupDialCode = document.getElementById('signupDialCode');
+      const signupCountry = document.getElementById('signupCountry');
+      const signupPostalCode = document.getElementById('signupPostalCode');
+      const sendCodeBtn = document.getElementById('sendCodeBtn');
+      const signupError = document.getElementById('signupError');
+      const verificationBox = document.getElementById('verificationBox');
+      const networkStatus = document.getElementById('networkStatus');
+      const authLoadingOverlay = document.getElementById('authLoadingOverlay');
+      const authTabs = document.querySelectorAll('.auth-tab');
+      const authBlocks = document.querySelectorAll('.auth-block');
+      const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+
+      function setLoading(button, loading, label) {
+        button.disabled = loading;
+        button.classList.toggle('is-loading', loading);
+        button.textContent = loading ? 'Loading...' : label;
+      }
+
+      function setAuthLoading(loading) {
+        authLoadingOverlay.classList.toggle('visible', loading);
+        authLoadingOverlay.setAttribute('aria-busy', String(loading));
+      }
+
+      function updateNetworkStatus() {
+        const offline = !navigator.onLine;
+        networkStatus.textContent = offline
+          ? 'You are offline. Reconnect to the internet to continue.'
+          : '';
+        networkStatus.classList.toggle('visible', offline);
+      }
+
+      window.addEventListener('online', updateNetworkStatus);
+      window.addEventListener('offline', updateNetworkStatus);
+      updateNetworkStatus();
+
+      const countries = [
+        ['NG', 'Nigeria', '+234'], ['US', 'United States', '+1'], ['GB', 'United Kingdom', '+44'],
+        ['CA', 'Canada', '+1'], ['GH', 'Ghana', '+233'], ['KE', 'Kenya', '+254'], ['ZA', 'South Africa', '+27'],
+        ['DE', 'Germany', '+49'], ['FR', 'France', '+33'], ['IT', 'Italy', '+39'], ['ES', 'Spain', '+34'],
+        ['IN', 'India', '+91'], ['CN', 'China', '+86'], ['JP', 'Japan', '+81'], ['AU', 'Australia', '+61'],
+        ['BR', 'Brazil', '+55'], ['MX', 'Mexico', '+52'], ['AE', 'United Arab Emirates', '+971'], ['SA', 'Saudi Arabia', '+966'],
+        ['EG', 'Egypt', '+20'], ['NZ', 'New Zealand', '+64'], ['IE', 'Ireland', '+353'], ['NL', 'Netherlands', '+31'],
+        ['SE', 'Sweden', '+46'], ['NO', 'Norway', '+47'], ['DK', 'Denmark', '+45'], ['CH', 'Switzerland', '+41'],
+        ['AT', 'Austria', '+43'], ['BE', 'Belgium', '+32'], ['PT', 'Portugal', '+351'], ['TR', 'Turkey', '+90'],
+        ['PK', 'Pakistan', '+92'], ['BD', 'Bangladesh', '+880'], ['PH', 'Philippines', '+63'], ['ID', 'Indonesia', '+62'],
+        ['MY', 'Malaysia', '+60'], ['SG', 'Singapore', '+65'], ['TH', 'Thailand', '+66'], ['VN', 'Vietnam', '+84'],
+        ['AR', 'Argentina', '+54'], ['CL', 'Chile', '+56'], ['CO', 'Colombia', '+57'], ['PE', 'Peru', '+51'],
+        ['RU', 'Russia', '+7'], ['UA', 'Ukraine', '+380'], ['IL', 'Israel', '+972'], ['QA', 'Qatar', '+974'],
+        ['KW', 'Kuwait', '+965'], ['MA', 'Morocco', '+212'], ['TZ', 'Tanzania', '+255'], ['UG', 'Uganda', '+256'],
+        ['ZW', 'Zimbabwe', '+263'], ['ET', 'Ethiopia', '+251'], ['SN', 'Senegal', '+221'], ['CI', 'Cote d Ivoire', '+225']
+      ];
+
+      countries.forEach(([code, name, dialCode]) => {
+        const countryOption = new Option(name, code);
+        countryOption.dataset.dialCode = dialCode;
+        signupCountry.add(countryOption);
+
+        const dialOption = new Option(`${dialCode} (${code})`, dialCode);
+        dialOption.dataset.countryCode = code;
+        signupDialCode.add(dialOption);
+      });
+
+      function setCountry(code) {
+        const country = countries.find(item => item[0] === code);
+        if (!country) return;
+        signupCountry.value = country[0];
+        signupDialCode.value = country[2];
+      }
+
+      signupCountry.addEventListener('change', () => setCountry(signupCountry.value));
+      signupDialCode.addEventListener('change', () => {
+        const matchingCountry = countries.find(item => item[2] === signupDialCode.value);
+        if (matchingCountry && !signupCountry.value) setCountry(matchingCountry[0]);
+      });
+      setCountry('NG');
+
+      function isOffline() {
+        return !navigator.onLine;
+      }
+
+      function showOfflineMessage(targetError, message) {
+        targetError.textContent = message;
+        targetError.classList.add('visible');
+      }
+
+      let generatedCode = '';
+      let otpExpiresAt = 0;
+      const maxLoginAttempts = 5;
+      const lockoutMinutes = 10;
+      const lockoutKey = 'acShopLoginLockout';
+
+      function getLockoutState() {
+        const state = JSON.parse(localStorage.getItem(lockoutKey) || '{"failedAttempts":0,"lockedUntil":0}');
+        return {
+          failedAttempts: Number(state.failedAttempts) || 0,
+          lockedUntil: Number(state.lockedUntil) || 0
+        };
+      }
+
+      function saveLockoutState(failedAttempts, lockedUntil) {
+        localStorage.setItem(lockoutKey, JSON.stringify({ failedAttempts, lockedUntil }));
+      }
+
+      function isLockedOut() {
+        const { lockedUntil } = getLockoutState();
+        return Date.now() < lockedUntil;
+      }
+
+      function getRemainingLockoutTime() {
+        const { lockedUntil } = getLockoutState();
+        const remainingMs = Math.max(0, lockedUntil - Date.now());
+        return Math.ceil(remainingMs / 60000);
+      }
+
+      function generateVerificationCode() {
+        return String(Math.floor(100000 + Math.random() * 900000));
+      }
+
+      function isOtpValid() {
+        return generatedCode && Date.now() < otpExpiresAt;
+      }
+
+      function invalidateOtp() {
+        generatedCode = '';
+        otpExpiresAt = 0;
+      }
+
+      function setTab(mode) {
+        authTabs.forEach(tab => tab.classList.toggle('active', tab.dataset.mode === mode));
+        authBlocks.forEach(block => block.classList.toggle('active', block.id === `${mode}Block`));
+      }
+
+      function requestLocation() {
+        return new Promise((resolve, reject) => {
+          if (!navigator.geolocation) {
+            reject(new Error('Location access is required to personalize your local results.'));
+            return;
+          }
+
+          navigator.geolocation.getCurrentPosition(
+            position => resolve({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            }),
+            () => reject(new Error('Allow location access to create an AC Shop account.')),
+            { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 }
+          );
+        });
+      }
+
+      async function apiRequest(path, options = {}) {
+        let response;
+        try {
+          response = await fetch(`${API_BASE}${path}`, {
+            headers: {
+              'Content-Type': 'application/json',
+              ...(options.headers || {})
+            },
+            ...options
+          });
+        } catch (error) {
+          throw new Error(!navigator.onLine
+            ? 'You are offline. Reconnect to the internet to continue.'
+            : 'Unable to connect to AC Shop. Please try again.');
+        }
+
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(data.message || 'Request failed');
+        }
+
+        return data;
+      }
+
+      const authUrlParams = new URLSearchParams(window.location.search);
+      const initialMode = authUrlParams.get('mode') === 'signup' ? 'signup' : 'login';
+      setTab(initialMode);
+
+      authTabs.forEach(tab => {
+        tab.addEventListener('click', () => setTab(tab.dataset.mode));
+      });
+
+      togglePasswordButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const targetId = button.dataset.target;
+          const input = document.getElementById(targetId);
+          if (!input) return;
+
+          const isHidden = input.type === 'password';
+          input.type = isHidden ? 'text' : 'password';
+          button.textContent = isHidden ? '🙈' : '👁';
+          button.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+        });
+      });
+
+      loginBtn.addEventListener('click', async () => {
+        if (isOffline()) {
+          showOfflineMessage(loginError, 'You are offline. Please connect to the internet to continue.');
+          return;
+        }
+
+        const email = loginEmail.value.trim();
+        const password = loginPassword.value.trim();
+        setLoading(loginBtn, true, 'Access account');
+        setAuthLoading(true);
+
+        try {
+          const result = await apiRequest('/api/auth/login', {
+            method: 'POST',
+            body: JSON.stringify({ email, password })
+          });
+
+          localStorage.setItem('acShopSession', 'true');
+          localStorage.setItem('acShopToken', result.token);
+          loginError.classList.remove('visible');
+          window.location.href = 'website.html';
+        } catch (error) {
+          loginError.textContent = error.message || 'Incorrect email or password. Please try again.';
+          loginError.classList.add('visible');
+        } finally {
+          setLoading(loginBtn, false, 'Access account');
+          setAuthLoading(false);
+        }
+      });
+
+      sendCodeBtn.addEventListener('click', async () => {
+        if (isOffline()) {
+          showOfflineMessage(signupError, 'You are offline. Please connect to the internet to continue.');
+          return;
+        }
+
+        const email = signupEmail.value.trim();
+        const password = signupPassword.value.trim();
+        const selectedCountry = countries.find(country => country[0] === signupCountry.value);
+        const localPhone = signupPhone.value.replace(/[^0-9]/g, '').replace(/^0+/, '');
+
+        if (!email || !email.includes('@') || password.length < 8
+          || !signupFirstName.value.trim() || !signupLastName.value.trim()
+          || !signupCountry.value.trim() || !signupPostalCode.value.trim() || !localPhone) {
+          signupError.textContent = 'Enter your name, email, password (8+ characters), country, and postal code.';
+          signupError.classList.add('visible');
+          return;
+        }
+
+        try {
+          signupError.classList.remove('visible');
+          setLoading(sendCodeBtn, true, 'Create account and send link');
+          setAuthLoading(true);
+          const location = await requestLocation();
+          const result = await apiRequest('/api/auth/signup', {
+            method: 'POST',
+            body: JSON.stringify({
+              email,
+              password,
+              firstName: signupFirstName.value.trim(),
+              lastName: signupLastName.value.trim(),
+              phone: `${signupDialCode.value}${localPhone}`,
+              country: selectedCountry ? selectedCountry[1] : '',
+              postalCode: signupPostalCode.value.trim(),
+              latitude: location.latitude,
+              longitude: location.longitude,
+              verificationMethod: 'email'
+            })
+          });
+
+          verificationBox.classList.add('visible');
+          signupError.classList.remove('visible');
+        } catch (error) {
+          signupError.textContent = error.message || 'Unable to create account.';
+          signupError.classList.add('visible');
+        } finally {
+          setLoading(sendCodeBtn, false, 'Create account and send link');
+          setAuthLoading(false);
+        }
+      });
+
+    </script>
+  </body>
+</html>

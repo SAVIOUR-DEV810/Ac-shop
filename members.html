@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AC Shop | Members</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="website.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px;
+      }
+
+      .members-page {
+        width: min(980px, 100%);
+        display: grid;
+        gap: 28px;
+        padding: 40px 30px;
+        border: 1px solid var(--border);
+        border-radius: 30px;
+        background: rgba(10, 17, 28, 0.72);
+        box-shadow: var(--shadow);
+      }
+
+      .members-brand {
+        display: grid;
+        place-items: center;
+        gap: 16px;
+      }
+
+      .members-brand .brand-mark {
+        width: 150px;
+        height: 150px;
+        border-radius: 36px;
+      }
+
+      .members-brand .brand-wordmark {
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+      }
+
+      .members-copy {
+        text-align: center;
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      .members-copy h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2.1rem, 4vw, 3.5rem);
+        letter-spacing: 0;
+      }
+
+      .members-copy p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.02rem;
+        line-height: 1.8;
+      }
+
+      .professor-ad {
+        display: grid;
+        gap: 18px;
+        background: linear-gradient(180deg, rgba(17, 28, 42, 0.94), rgba(12, 22, 35, 0.94));
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 28px;
+      }
+
+      .professor-ad-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .professor-ad-header .professor-avatar {
+        width: 74px;
+        height: 74px;
+        border-radius: 22px;
+        font-size: 1.2rem;
+      }
+
+      .professor-ad-header h2 {
+        margin: 0 0 6px;
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+      }
+
+      .professor-ad-header p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .ad-tag {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(45, 212, 191, 0.12);
+        color: #7ef0be;
+        font-size: 0.73rem;
+        font-weight: 700;
+      }
+
+      .ad-card-copy {
+        display: grid;
+        gap: 12px;
+      }
+
+      .ad-card-copy h3 {
+        margin: 0;
+        font-size: clamp(1.7rem, 2.5vw, 2.4rem);
+        letter-spacing: 0;
+      }
+
+      .ad-card-copy p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .ad-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .ad-metrics div {
+        padding: 14px 16px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,0.02);
+      }
+
+      .ad-metrics strong {
+        display: block;
+        font-size: 1.3rem;
+      }
+
+      .ad-metrics span {
+        color: var(--muted);
+        font-size: 0.75rem;
+      }
+
+      .cta-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      .cta-row span {
+        color: var(--muted);
+      }
+
+      @media (max-width: 640px) {
+        .ad-metrics {
+          grid-template-columns: 1fr;
+        }
+
+        .cta-row {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="members-page">
+      <div class="members-brand">
+        <div class="brand-mark">N</div>
+        <div class="brand-wordmark">
+          <span>Nova</span>
+          <strong>Learn</strong>
+        </div>
+      </div>
+
+      <div class="members-copy" id="membersEmptyCopy">
+        <h1>Meet talented professors and unlock your next skill.</h1>
+        <p>
+          Nova Learn connects learners with expert mentors in website development, video editing, and creative digital skills. Explore lessons built for real-world growth and discover a learning path that fits your goals.
+        </p>
+      </div>
+
+      <section class="professor-ad is-hidden" id="professorAd">
+        <div class="professor-ad-header">
+          <div class="professor-avatar" id="memberAdAvatar"></div>
+          <div>
+            <h2 id="memberAdName"></h2>
+            <p id="memberAdCourse"></p>
+          </div>
+        </div>
+
+        <div class="ad-tag">Ad created</div>
+
+        <div class="ad-card-copy">
+            <h3 id="memberAdTitle"></h3>
+            <p id="memberAdBio"></p>
+        </div>
+
+        <div class="ad-metrics">
+          <div>
+            <strong>Set by professor</strong>
+            <span>Class format</span>
+          </div>
+          <div>
+            <strong>Not rated</strong>
+            <span>Rating</span>
+          </div>
+          <div>
+            <strong>0</strong>
+            <span>Learners</span>
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <button id="memberEnrollBtn" class="primary-btn small" type="button">Enroll now</button>
+            <span id="memberAdEmail"></span>
+        </div>
+      </section>
+    </main>
+
+    <div class="permission-modal" id="enrollmentPaymentModal" aria-hidden="true">
+      <div class="permission-panel">
+        <p class="tiny-label">Enrollment checkout</p>
+        <h3>Provide payment details</h3>
+        <p class="permission-text">Enter your preferred payment method to request enrollment. Do not enter a PIN or security code.</p>
+        <div class="enrollment-payment-form">
+          <label>Full name<input id="enrollmentPayerName" type="text" autocomplete="name" placeholder="Your full name" /></label>
+          <label>Class duration<select id="enrollmentDuration"><option value="1">1 hour</option><option value="2">2 hours</option><option value="4">4 hours</option><option value="8">8 hours</option></select></label>
+          <div class="enrollment-price-summary"><span>Product price</span><strong id="enrollmentProfessorRate">$20.00 / hour</strong><span>AC Shop fee</span><strong>$5.00 / hour</strong><span>Total</span><strong id="enrollmentTotal">$25.00</strong></div>
+          <label>Payment method<select id="enrollmentPaymentMethod"><option>Visa</option><option>MasterCard</option><option>Verve</option><option>PayPal</option><option>Paysera</option><option>Airtm</option></select></label>
+          <label>Payment reference<input id="enrollmentPaymentReference" type="text" autocomplete="off" placeholder="Card ending, wallet email, or account ID" /></label>
+        </div>
+        <p class="error-text" id="enrollmentPaymentError" role="alert"></p>
+        <div class="modal-actions"><button class="ghost-btn small" id="cancelEnrollmentPaymentBtn" type="button">Cancel</button><button class="primary-btn small" id="submitEnrollmentPaymentBtn" type="button">Request enrollment</button></div>
+      </div>
+    </div>
+
+    <script>
+      const isLocalPreview = window.location.protocol === 'file:'
+        || (['localhost', '127.0.0.1'].includes(window.location.hostname) && window.location.port !== '3000');
+      const API_BASE = isLocalPreview ? 'http://127.0.0.1:3000' : '';
+      const params = new URLSearchParams(window.location.search);
+      const professorAd = document.getElementById('professorAd');
+      const membersEmptyCopy = document.getElementById('membersEmptyCopy');
+      const memberAdName = document.getElementById('memberAdName');
+      const memberAdCourse = document.getElementById('memberAdCourse');
+      const memberAdTitle = document.getElementById('memberAdTitle');
+      const memberAdBio = document.getElementById('memberAdBio');
+      const memberAdEmail = document.getElementById('memberAdEmail');
+      const memberEnrollBtn = document.getElementById('memberEnrollBtn');
+      const memberAdAvatar = document.getElementById('memberAdAvatar');
+      const enrollmentPaymentModal = document.getElementById('enrollmentPaymentModal');
+      const enrollmentPayerName = document.getElementById('enrollmentPayerName');
+      const enrollmentDuration = document.getElementById('enrollmentDuration');
+      const enrollmentProfessorRate = document.getElementById('enrollmentProfessorRate');
+      const enrollmentTotal = document.getElementById('enrollmentTotal');
+      const enrollmentPaymentMethod = document.getElementById('enrollmentPaymentMethod');
+      const enrollmentPaymentReference = document.getElementById('enrollmentPaymentReference');
+      const enrollmentPaymentError = document.getElementById('enrollmentPaymentError');
+      const cancelEnrollmentPaymentBtn = document.getElementById('cancelEnrollmentPaymentBtn');
+      const submitEnrollmentPaymentBtn = document.getElementById('submitEnrollmentPaymentBtn');
+      let selectedProfessorRate = 20;
+      let selectedProfessorEmail = '';
+      let selectedCourseTitle = '';
+
+      function updateEnrollmentTotal() {
+        const hours = Number(enrollmentDuration.value) || 1;
+        const total = hours * (selectedProfessorRate + 5);
+        enrollmentProfessorRate.textContent = `$${selectedProfessorRate.toFixed(2)} / hour`;
+        enrollmentTotal.textContent = `$${total.toFixed(2)}`;
+      }
+
+      function openEnrollmentPayment() {
+        enrollmentPaymentError.textContent = '';
+        enrollmentPaymentError.classList.remove('visible');
+        enrollmentPaymentModal.classList.add('visible');
+        enrollmentPaymentModal.setAttribute('aria-hidden', 'false');
+        updateEnrollmentTotal();
+        enrollmentPayerName.focus();
+      }
+
+      function closeEnrollmentPayment() {
+        enrollmentPaymentModal.classList.remove('visible');
+        enrollmentPaymentModal.setAttribute('aria-hidden', 'true');
+      }
+
+      submitEnrollmentPaymentBtn.addEventListener('click', async () => {
+        const hours = Number(enrollmentDuration.value) || 1;
+        const learnerName = enrollmentPayerName.value.trim();
+        const paymentReference = enrollmentPaymentReference.value.trim();
+        if (!learnerName || !paymentReference) {
+          enrollmentPaymentError.textContent = 'Enter your full name and payment reference to continue.';
+          enrollmentPaymentError.classList.add('visible');
+          return;
+        }
+        submitEnrollmentPaymentBtn.disabled = true;
+        try {
+          const response = await fetch(`${API_BASE}/api/enrollments`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              learnerName,
+              professorEmail: selectedProfessorEmail,
+              courseTitle: selectedCourseTitle,
+              hours,
+              hourlyRate: selectedProfessorRate,
+              paymentMethod: enrollmentPaymentMethod.value.toLowerCase(),
+              paymentReference
+            })
+          });
+          const result = await response.json();
+          if (!response.ok) throw new Error(result.message || 'Unable to create the enrollment bill.');
+          closeEnrollmentPayment();
+          enrollmentPaymentReference.value = '';
+          if (result.approvalUrl) {
+            window.open(result.approvalUrl, '_blank', 'noopener');
+          } else {
+            alert(`Bill created for $${Number(result.amount).toFixed(2)}.`);
+          }
+        } catch (error) {
+          enrollmentPaymentError.textContent = error.message;
+          enrollmentPaymentError.classList.add('visible');
+        } finally {
+          submitEnrollmentPaymentBtn.disabled = false;
+        }
+      });
+
+      cancelEnrollmentPaymentBtn.addEventListener('click', closeEnrollmentPayment);
+      enrollmentDuration.addEventListener('change', updateEnrollmentTotal);
+
+      function renderAd(ad) {
+        membersEmptyCopy.classList.add('is-hidden');
+        professorAd.classList.remove('is-hidden');
+
+        const name = ad.professorName || ad.professor_name || 'Professor';
+        const course = ad.courseTitle || ad.course_title || 'Course';
+        const email = ad.email || ad.user_email || '';
+        const bio = ad.bio || 'No profile bio provided.';
+        selectedProfessorRate = Number(ad.payoutAmount || ad.payout_amount || 20);
+        selectedProfessorEmail = email;
+        selectedCourseTitle = course;
+
+        memberAdName.textContent = name;
+        memberAdCourse.textContent = course;
+        memberAdTitle.textContent = `Learn ${course.toLowerCase()} with ${name}`;
+        memberAdBio.textContent = bio;
+        memberAdEmail.textContent = email;
+
+        const initials = name
+          .split(' ')
+          .map(part => part[0])
+          .slice(0, 2)
+          .join('')
+          .toUpperCase();
+        memberAdAvatar.textContent = initials;
+
+        memberEnrollBtn.onclick = () => {
+          openEnrollmentPayment();
+        };
+      }
+
+      async function loadMemberAd() {
+        const token = localStorage.getItem('acShopToken');
+        if (!token) {
+          window.location.href = 'login.html?mode=login';
+          return;
+        }
+
+        const hasAdParam = params.get('ad') === 'true';
+        const name = params.get('name');
+        const course = params.get('course');
+        const email = params.get('email');
+        const bio = params.get('bio');
+
+        if (hasAdParam && name && course && email) {
+          renderAd({ professorName: name, courseTitle: course, email, bio: bio || '' });
+          return;
+        }
+
+        try {
+          const response = await fetch(`${API_BASE}/api/ads`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          const data = await response.json();
+          const ads = Array.isArray(data.ads) ? data.ads : [];
+
+          if (ads.length > 0) {
+            renderAd(ads[0]);
+            return;
+          }
+        } catch (error) {
+          console.warn('Unable to load ads from backend:', error);
+        }
+
+        professorAd.classList.add('is-hidden');
+        membersEmptyCopy.classList.remove('is-hidden');
+      }
+
+      loadMemberAd();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AC Shop | CEO Data</title>
+    <link rel="stylesheet" href="website.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #07111f;
+        color: #eef6ff;
+      }
+
+      .ceo-wrap {
+        max-width: 1400px;
+        margin: 30px auto;
+        padding: 20px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(180px, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .card {
+        background: rgba(19, 28, 43, 0.9);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 18px;
+        padding: 18px 20px;
+      }
+
+      .label {
+        color: #9bb3c8;
+        font-size: 0.76rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .value {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-top: 8px;
+      }
+
+      .section {
+        margin-top: 24px;
+      }
+
+      .section h2 {
+        margin-bottom: 12px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: rgba(17, 25, 38, 0.92);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+
+      th, td {
+        text-align: left;
+        padding: 12px 10px;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        vertical-align: top;
+        font-size: 0.92rem;
+      }
+
+      th {
+        background: rgba(139, 92, 246, 0.12);
+        color: #d8d0ff;
+      }
+
+      .status {
+        display: inline-block;
+        padding: 5px 8px;
+        border-radius: 999px;
+        font-size: 0.74rem;
+        background: rgba(45, 212, 191, 0.15);
+        color: #a5f3d0;
+      }
+
+      .status.pending {
+        background: rgba(251, 191, 36, 0.14);
+        color: #fcd34d;
+      }
+
+      .danger {
+        color: #ffb3b3;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const CEO_PASSWORD = 'buzifrank';
+      const ceoUnlocked = sessionStorage.getItem('acShopCeoUnlocked') === 'true';
+
+      if (!ceoUnlocked) {
+        sessionStorage.setItem('acShopCeoRedirect', 'ceo-data.html');
+        window.location.href = 'ceo-password.html';
+      }
+    </script>
+    <div class="ceo-wrap">
+      <div class="topbar">
+        <div>
+          <div class="label">AC Shop CEO Dashboard</div>
+          <h1>Live platform activity</h1>
+        </div>
+        <button class="primary-btn" id="refreshBtn" type="button">Refresh now</button>
+      </div>
+
+      <div class="hero">
+        <div class="card">
+          <div class="label">Registered users</div>
+          <div class="value" id="userCount">0</div>
+        </div>
+        <div class="card">
+          <div class="label">Active ads</div>
+          <div class="value" id="adCount">0</div>
+        </div>
+        <div class="card">
+          <div class="label">Enrollments</div>
+          <div class="value" id="enrollmentCount">0</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Registered users</h2>
+        <div style="overflow:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Country</th>
+                <th>Postal</th>
+                <th>Verified</th>
+                <th>Created</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Ad creators</h2>
+        <div style="overflow:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Professor</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th>Specialty</th>
+                <th>Payout</th>
+                <th>Created</th>
+              </tr>
+            </thead>
+            <tbody id="adsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Enrollments</h2>
+        <div style="overflow:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Learner</th>
+                <th>Professor</th>
+                <th>Course</th>
+                <th>Hours</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Created</th>
+              </tr>
+            </thead>
+            <tbody id="enrollmentsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const token = localStorage.getItem('acShopToken');
+      const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://127.0.0.1:3000' : '';
+
+      async function api(path) {
+        const res = await fetch(`${API_BASE}${path}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          throw new Error(data.message || 'Request failed');
+        }
+        return data;
+      }
+
+      function renderUsers(users) {
+        const body = document.getElementById('usersTableBody');
+        body.innerHTML = users.map(user => `
+          <tr>
+            <td>${user.id}</td>
+            <td>${user.first_name || ''} ${user.last_name || ''}</td>
+            <td>${user.email}</td>
+            <td>${user.phone || '—'}</td>
+            <td>${user.country || '—'}</td>
+            <td>${user.postal_code || '—'}</td>
+            <td>${user.email_verified ? '<span class="status">Verified</span>' : '<span class="status pending">Pending</span>'}</td>
+            <td>${new Date(user.created_at).toLocaleString()}</td>
+          </tr>
+        `).join('');
+      }
+
+      function renderAds(ads) {
+        const body = document.getElementById('adsTableBody');
+        body.innerHTML = ads.map(ad => `
+          <tr>
+            <td>${ad.id}</td>
+            <td>${ad.professor_name}</td>
+            <td>${ad.email || ad.user_email}</td>
+            <td>${ad.course_title}</td>
+            <td>${ad.specialty}</td>
+            <td>$${Number(ad.payout_amount || 0).toFixed(2)}</td>
+            <td>${new Date(ad.created_at).toLocaleString()}</td>
+          </tr>
+        `).join('');
+      }
+
+      function renderEnrollments(enrollments) {
+        const body = document.getElementById('enrollmentsTableBody');
+        body.innerHTML = enrollments.map(item => `
+          <tr>
+            <td>${item.id}</td>
+            <td>${item.learner_name || item.learner_email || '—'}</td>
+            <td>${item.professor_email}</td>
+            <td>${item.course_title}</td>
+            <td>${item.hours}</td>
+            <td>$${Number(item.total_amount || 0).toFixed(2)}</td>
+            <td><span class="status ${item.status === 'paid' || item.status === 'completed' ? '' : 'pending'}">${item.status || 'pending'}</span></td>
+            <td>${new Date(item.created_at).toLocaleString()}</td>
+          </tr>
+        `).join('');
+      }
+
+      async function loadData() {
+        try {
+          const [overview, usersData, adsData, enrollmentsData] = await Promise.all([
+            api('/api/ceo/overview'),
+            api('/api/ceo/users'),
+            api('/api/ceo/ads'),
+            api('/api/ceo/enrollments')
+          ]);
+
+          document.getElementById('userCount').textContent = overview.overview.users;
+          document.getElementById('adCount').textContent = overview.overview.ads;
+          document.getElementById('enrollmentCount').textContent = overview.overview.enrollments;
+          renderUsers(usersData.users || []);
+          renderAds(adsData.ads || []);
+          renderEnrollments(enrollmentsData.enrollments || []);
+        } catch (error) {
+          document.body.innerHTML = `<div style="padding: 40px; color: white;">${error.message}</div>`;
+        }
+      }
+
+      document.getElementById('refreshBtn').addEventListener('click', loadData);
+      loadData();
+      setInterval(loadData, 15000);
+    </script>
+  </body>
+</html>
